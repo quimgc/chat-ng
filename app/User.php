@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'avatar'
     ];
 
     /**
@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * formatted_created_at_date attribute.
+     *
+     * @return mixed
+     */
+    public function getFormattedCreatedAtDateAttribute()
+    {
+        return $this->created_at->format('h:i:sA d-m-Y');
+    }
 }

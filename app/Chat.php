@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,6 +12,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Chat extends Model
 {
+
+    protected $guarded = [];
+
     /**
      * Get the messages for the chat.
      */
@@ -18,4 +22,21 @@ class Chat extends Model
     {
         return $this->hasMany(ChatMessage::class);
     }
+
+    /**
+     * Add message to chat.
+     *
+     * @param $message
+     * @param null $user
+     */
+    public function addMessage($message, $user = null)
+    {
+        if (!$user) $user = Auth::user();
+        $ChatMessage = new ChatMessage([
+            'body' => $message,
+            'user_id' => $user->id
+        ]);
+        $this->messages()->save($ChatMessage);
+    }
+
 }

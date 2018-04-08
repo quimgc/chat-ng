@@ -42,6 +42,14 @@ if (token) {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+let user = document.head.querySelector('meta[name="user"]');
+
+if (user) {
+  window.user = user.content
+} else {
+  console.error('User not found!');
+}
+
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
  * using reactive data binding and reusable components. Vue's API is clean

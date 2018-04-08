@@ -37,7 +37,6 @@ class ChatsTest extends TestCase
     /** @test */
     public function logged_user_can_join_to_specific_chat()
     {
-        $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
         View::share('user', $user);
 

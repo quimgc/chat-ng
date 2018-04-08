@@ -26,4 +26,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/chats', 'ChatController@index');
 
     Route::get('/chat/{chat}', 'ChatController@show');
+
+    Route::post('/chat/{chat}/message', 'ChatMessageController@create');
 });
