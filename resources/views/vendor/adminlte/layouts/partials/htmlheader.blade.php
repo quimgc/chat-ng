@@ -6,6 +6,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="user" content="{{ formatted_logged_user() }}">
 
+    <script>
+      window.Laravel = {!! json_encode([
+            'vapidPublicKey' => config('webpush.vapid.public_key'),
+        ]) !!};
+    </script>
+
     <link href="{{ mix('/css/all.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Chat;
+use App\Events\newMessage;
 
 /**
  * Class ChatController.
