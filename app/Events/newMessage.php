@@ -16,17 +16,20 @@ class newMessage implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $chat, $request;
+    public $message;
+
+    public $chat;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Chat $chat, Request $request)
+    public function __construct($message, $chat)
     {
+        $this->message = $message;
+
         $this->chat = $chat;
-        $this->request = $request;
     }
 
     /**

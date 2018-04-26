@@ -261,6 +261,11 @@
     mounted() {
       this.registerServiceWorker()
       this.scroll_top_down()
+
+      Echo.channel('newMessage')
+        .listen('newMessage', e => {
+          console.log('New Message has been updated.')
+        })
     }
   }
 </script>

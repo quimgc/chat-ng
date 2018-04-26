@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Chat;
 use App\Events\newMessage;
+use Log;
 
 /**
  * Class ChatController.
@@ -19,6 +20,7 @@ class ChatController extends Controller
      */
     public function index()
     {
+
         return view('chats',['chats' => Chat::all()]);
     }
 

@@ -18,10 +18,15 @@ class ChatMessageController extends Controller
      */
     public function create(Request $request, Chat $chat)
     {
-        Log::info($chat);
-        event(new newMessage($chat, $request->user(), $request->body));
+//        newMessage::dispatch();
+        Log::info('send sms');
 
-        $chat->addMessage($request->body);
+        $message = $request->body;
+
+        event(new newMessage($message, $chat));
+
+        $chat->addMessage($message);
+
 
 
         //TODO notifications al web push
