@@ -16,6 +16,7 @@ window.Vue = require('vue');
  */
 
 Vue.component('chat', require('./components/ChatComponent.vue'));
+Vue.component('statistics-chart', require('./components/StatisticsChartComponent.vue'));
 
 const app = new Vue({
     el: '#app'

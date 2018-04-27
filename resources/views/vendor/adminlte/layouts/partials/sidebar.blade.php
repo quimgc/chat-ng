@@ -35,7 +35,12 @@
             <!-- Optionally, you can add icons to the links -->
             <li class="active"><a href="{{ url('home') }}"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.home') }}</span></a></li>
             <li><a href="/chats"><i class='fa fa-comments'></i> <span>Chats</span></a></li>
-        </ul><!-- /.sidebar-menu -->
+        </ul><!-- /.sidebar-menu -->  <!-- Sidebar Menu -->
+
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">Administració</li>
+            <li><a href="/statistics"><i class='fa fa-comments'></i> <span>Statistics</span></a></li>
+        </ul>
     </section>
     <!-- /.sidebar -->
 </aside>

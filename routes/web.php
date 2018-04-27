@@ -30,6 +30,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/chat/{chat}/message', 'ChatMessageController@create');
 
     Route::get('/chat/{chat}/pdf', 'DownloadChatAsPDFController@index');
+
+    Route::get('/statistics', 'MonthlyStatisticController@show');
+
 });
 
 // Push Subscriptions
