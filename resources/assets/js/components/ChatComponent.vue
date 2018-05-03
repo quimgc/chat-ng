@@ -256,16 +256,29 @@
       },
       timestamp() {
         return moment().format('YYYY-MM-DD hh:mm:ss')
+      },
+      startEcho() {
+        Echo.channel('Chat.' + this.chat.id + '.newMessage')
+          .listen('newMessage', e => {
+            const message = {
+              'body':  e.message,
+              'chat_id': e.chat.id,
+              'formatted_created_at_date': this.timestamp(),
+              user: {
+                'name': this.logged_user.name,
+                'avatar': this.logged_user.avatar,
+                'id': this.logged_user.id
+              }
+            }
+            this.chat.messages.push(message)
+            this.scroll_top_down()
+          })
       }
     },
     mounted() {
-      this.registerServiceWorker()
       this.scroll_top_down()
-
-      Echo.channel('newMessage')
-        .listen('newMessage', e => {
-          console.log('New Message has been updated.')
-        })
+      this.registerServiceWorker()
+      this.startEcho()
     }
   }
 </script>

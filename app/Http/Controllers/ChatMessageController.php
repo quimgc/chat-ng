@@ -23,7 +23,9 @@ class ChatMessageController extends Controller
 
         $message = $request->body;
 
-        event(new newMessage($message, $chat));
+        event(
+            (new newMessage($message, $chat))->dontBroadcastToCurrentUser()
+        );
 
         $chat->addMessage($message);
 

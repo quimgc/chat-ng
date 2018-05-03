@@ -45,11 +45,13 @@ A la classe a la funció **broadcastOn** se li ha de canviar el return per un am
 
     return new Channel('nom canal');
 
-Aquest canal s'ha de crear a **routes/channel.php**.
+Aquest canal s'ha de crear a **routes/channel.php**. He creat un canal amb el següent contingut:
 
-
-Com que és un canal public, s'ha de crear al fitxer **channels.php** un canal amb aquest nom.
-
+    Broadcast::channel('Chat.{chat}.newMessage', function ($chat, $user) {
+        return true;
+    });
+    
+D'aquesta forma m'asseguro de que cada missatge va dirigit al xat corresponent i no a tots.
 
 
 # Configuració del Laravel Echo
@@ -76,9 +78,9 @@ Si la pàgina dóna algun error de **csrf token** s'ha d'afegir:
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-Al component de l'element que se'l vol fer "get real", s'ha d'afegir el següent codi al mounted.
+Al component de l'element que se'l vol fer "real time", s'ha d'afegir el següent codi al mounted.
 
-      Echo.channel('newMessage')
+      Echo.channel('Chat.' + this.chat.id + '.newMessage')
             .listen('newMessage', e => {
               console.log('New Message has been updated.')
             })
@@ -144,7 +146,39 @@ Exemple de event:
            */
           public function broadcastOn()
           {
-              return new Channel('newMessage');
+              return new Channel('Chat.' + this.chat.id + '.newMessage');
       //        return new PrivateChannel('channel-name');
           }
       }
+
+
+Per arreglar "l'error" de que a la finestra que enviem el missatge aparegui dos cops, s'ha de fer el següent.
+
+Al controlador que s'envia l'esdeveniment s'ha de posar el -> **dontBroadcastToCurrentUser()**.
+
+     event(
+                (new newMessage($message, $chat))->dontBroadcastToCurrentUser()
+     );
+     
+Per últim, al component ChatComponent he afegit el següent mètode:
+
+     startEcho() {
+            Echo.channel('Chat.' + this.chat.id + '.newMessage')
+              .listen('newMessage', e => {
+                const message = {
+                  'body':  e.message,
+                  'chat_id': e.chat.id,
+                  'formatted_created_at_date': this.timestamp(),
+                  user: {
+                    'name': this.logged_user.name,
+                    'avatar': this.logged_user.avatar,
+                    'id': this.logged_user.id
+                  }
+                }
+                this.chat.messages.push(message)
+                this.scroll_top_down()
+              })
+          }
+          
+          
+Al mounted he afegit **this.startEcho()**.

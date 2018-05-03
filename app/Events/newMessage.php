@@ -39,7 +39,7 @@ class newMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('newMessage');
+        return new Channel("Chat.{$this->chat->id}.newMessage");
 //        return new PrivateChannel('channel-name');
     }
 }
