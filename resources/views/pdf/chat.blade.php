@@ -1,9 +1,18 @@
 <h1> {{ $chat->name }}</h1>
 
 
-<ul>
 
-    <li>Miss 1</li>
-    <li>Miss 2</li>
-    <li>Miss 3</li>
+<ul>
+    <?php foreach($chat->messages as $message): ?>
+        <div>
+            <b>{{$message->user->name}}</b>: {{$message->body}} <br>
+        </div>
+    <?php endforeach; ?>
 </ul>
+
+<style>
+    div{
+        padding: 10px;
+    }
+    div:nth-child(odd) { background: #ddd }
+</style>

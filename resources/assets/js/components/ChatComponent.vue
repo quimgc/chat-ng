@@ -62,6 +62,10 @@
                 :class="{ 'btn-primary': !isPushEnabled, 'btn-danger': isPushEnabled }">
             {{ isPushEnabled ? 'Disable' : 'Enable' }} Push Notifications
         </button>
+
+
+        <button title="pdf" @click="pdf" class="btn btn-primary fa  fa-file-pdf-o"></button>
+        <button title="print" @click="print" class="btn btn-primary fa  fa-print"></button>
     </div>
 </template>
 
@@ -273,6 +277,12 @@
             this.chat.messages.push(message)
             this.scroll_top_down()
           })
+      },
+      pdf() {
+       window.location.href = this.chat.id + "/pdf"
+      },
+      print() {
+       window.location.href = this.chat.id + "/print"
       }
     },
     mounted() {

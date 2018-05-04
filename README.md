@@ -182,3 +182,15 @@ Per últim, al component ChatComponent he afegit el següent mètode:
           
           
 Al mounted he afegit **this.startEcho()**.
+
+
+# PDF
+
+-> dompdf canvia de html a php.
+
+https://github.com/dompdf/dompdf
+
+Amb l'ajuda d'aquest paquet ho utilitzem amb laravel i ens crea una facade.
+
+https://github.com/barryvdh/laravel-dompdf
+
