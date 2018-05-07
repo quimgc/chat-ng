@@ -279,6 +279,11 @@
               this.scroll_top_down()
             })
           })
+
+        Echo.join(`Chat.${this.chat.id}`)
+          .joining((user) => {
+          console.log(user)
+          })
       },
       pdf() {
        window.location.href = this.chat.id + "/pdf"

@@ -39,4 +39,16 @@ class User extends Authenticatable
     {
         return $this->created_at->format('h:i:sA d-m-Y');
     }
+
+    public function formatted_notifications()
+    {
+        return
+            $this->notifications->map(function ($notification) {
+            return [
+                'user' => $notification->data['user'],
+                'text' => $notification->data['text'],
+                'created_at' => $notification->data['created_at']
+            ];
+        });
+    }
 }
