@@ -183,6 +183,11 @@ Per últim, al component ChatComponent he afegit el següent mètode:
           
 Al mounted he afegit **this.startEcho()**.
 
+Per a que el xat faci scroll un cop s'ha enviat el missatge, he afegit el següent codi a la funció **startEcho**.
+
+    Vue.nextTick(() => {
+      this.scroll_top_down()
+    })
 
 # PDF
 

@@ -275,7 +275,9 @@
               }
             }
             this.chat.messages.push(message)
-            this.scroll_top_down()
+            Vue.nextTick(() => {
+              this.scroll_top_down()
+            })
           })
       },
       pdf() {
