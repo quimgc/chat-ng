@@ -262,8 +262,18 @@
         return moment().format('YYYY-MM-DD hh:mm:ss')
       },
       startEcho() {
-        Echo.channel('Chat.' + this.chat.id + '.newMessage')
-          .listen('newMessage', e => {
+        Echo.join(`Chat.${this.chat.id}`)
+          .here(users => {
+            this.participants = users
+          })
+          .joining((user) => {
+            this.participants.push(user)
+          })
+          .leaving(user => {
+            this.participants.splice(this.participants.indexOf(user),1)
+          })
+          .listen('NewMessage', e => {
+            console.log('listen')
             const message = {
               'body':  e.message,
               'chat_id': e.chat.id,
@@ -278,11 +288,6 @@
             Vue.nextTick(() => {
               this.scroll_top_down()
             })
-          })
-
-        Echo.join(`Chat.${this.chat.id}`)
-          .joining((user) => {
-          console.log(user)
           })
       },
       pdf() {

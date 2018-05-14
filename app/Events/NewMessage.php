@@ -3,16 +3,15 @@
 namespace App\Events;
 
 use App\Chat;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
-class newMessage implements ShouldBroadcast
+class NewMessage implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -39,7 +38,8 @@ class newMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel("Chat.{$this->chat->id}.newMessage");
+        Log::info('nou missatge');
+        return new PresenceChannel("Chat.".$this->chat->id);
 //        return new PrivateChannel('channel-name');
     }
 }

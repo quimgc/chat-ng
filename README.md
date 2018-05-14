@@ -33,24 +33,24 @@ Instal·lar composer pusher:
 
 Un cop fet tot això s'ha de crear un esdevniment.
 
-    php artisan make:event newMessage
+    php artisan make:event NewMessage
     
     
  Al esdevniment generat, se li ha d'implementar **ShouldBroadcast**.
  
-    Class newMessage implements ShouldBroadcast
+    Class NewMessage implements ShouldBroadcast
     
 
-A la classe a la funció **broadcastOn** se li ha de canviar el return per un amb el **Channel** public:
+A la classe a la funció **broadcastOn** se li ha de canviar el return per un amb el **PresenceChannel** privat:
 
-    return new Channel('nom canal');
+    return new PresenceChannel('nom canal');
 
 Aquest canal s'ha de crear a **routes/channel.php**. He creat un canal amb el següent contingut:
 
-    Broadcast::channel('Chat.{chat}.newMessage', function ($chat, $user) {
-        return true;
+    Broadcast::channel('Chat.{chat}', function ($chat, $user) {
+        return Auth::user();
     });
-    
+
 D'aquesta forma m'asseguro de que cada missatge va dirigit al xat corresponent i no a tots.
 
 
@@ -80,12 +80,12 @@ Si la pàgina dóna algun error de **csrf token** s'ha d'afegir:
 
 Al component de l'element que se'l vol fer "real time", s'ha d'afegir el següent codi al mounted.
 
-      Echo.channel('Chat.' + this.chat.id + '.newMessage')
-            .listen('newMessage', e => {
+      Echo.channel('Chat.' + this.chat.id)
+            .listen('NewMessage', e => {
               console.log('New Message has been updated.')
             })
             
-El que s'està fent és dirli quin channel ha d'escoltar i on posa .listen és l'esdevniment que s'executa.
+El que s'està fent és dir-li quin channel ha d'escoltar i on posa .listen és l'esdevniment que s'executa.
 
 
 Tot seguit des del controlador que es vulgui executar, se li ha de passar la informació a l'event de la següent forma:
@@ -97,18 +97,12 @@ Tot seguit des del controlador que es vulgui executar, se li ha de passar la inf
          */
         public function create(Request $request, Chat $chat)
         {
-    //        newMessage::dispatch();
-            Log::info('send sms');
-    
             $message = $request->body;
     
-            event(new newMessage($message, $chat));
+            event(new NewMessage($message, $chat));
     
             $chat->addMessage($message);
-    
-    
-    
-            //TODO notifications al web push
+
         }
     }
 
@@ -119,7 +113,7 @@ $message i $chat són dos variables del mateix controlador per passar el missatg
 Exemple de event:
 
 
-      class newMessage implements ShouldBroadcast
+      class NewMessage implements ShouldBroadcast
       {
           use Dispatchable, InteractsWithSockets, SerializesModels;
       
@@ -146,8 +140,7 @@ Exemple de event:
            */
           public function broadcastOn()
           {
-              return new Channel('Chat.' + this.chat.id + '.newMessage');
-      //        return new PrivateChannel('channel-name');
+              return new PresenceChannel('Chat.' + this.chat.id);
           }
       }
 
@@ -157,14 +150,14 @@ Per arreglar "l'error" de que a la finestra que enviem el missatge aparegui dos 
 Al controlador que s'envia l'esdeveniment s'ha de posar el -> **dontBroadcastToCurrentUser()**.
 
      event(
-                (new newMessage($message, $chat))->dontBroadcastToCurrentUser()
+                (new NewMessage($message, $chat))->dontBroadcastToCurrentUser()
      );
      
 Per últim, al component ChatComponent he afegit el següent mètode:
 
      startEcho() {
-            Echo.channel('Chat.' + this.chat.id + '.newMessage')
-              .listen('newMessage', e => {
+            Echo.join('Chat.' + this.chat.id)
+              .listen('NewMessage', e => {
                 const message = {
                   'body':  e.message,
                   'chat_id': e.chat.id,

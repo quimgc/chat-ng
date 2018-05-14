@@ -15,10 +15,6 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('Chat.{chat}.newMessage', function ($chat, $user) {
-    return true;
-});
-
 Broadcast::channel('Chat.{chat}', function ($chat, $user) {
-    return true;
+    return Auth::user();
 });

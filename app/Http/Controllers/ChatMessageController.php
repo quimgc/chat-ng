@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Chat;
-use App\Events\newMessage;
+use App\Events\NewMessage;
 use Illuminate\Http\Request;
 use Log;
 
@@ -18,19 +18,14 @@ class ChatMessageController extends Controller
      */
     public function create(Request $request, Chat $chat)
     {
-//        newMessage::dispatch();
-        Log::info('send sms');
 
         $message = $request->body;
 
         event(
-            (new newMessage($message, $chat))->dontBroadcastToCurrentUser()
+            (new NewMessage($message, $chat))->dontBroadcastToCurrentUser()
         );
 
         $chat->addMessage($message);
 
-
-
-        //TODO notifications al web push
     }
 }
