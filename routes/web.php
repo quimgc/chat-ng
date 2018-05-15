@@ -29,9 +29,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/chat/{chat}/message', 'ChatMessageController@create');
 
-    Route::get('/chat/{chat}/print', 'PrintChatController@index');
+    Route::get('/chat/{chat}/print', 'DownloadChatAsPDFController@printChat');
 
-    Route::get('/chat/{chat}/pdf', 'DownloadChatAsPDFController@index');
+    Route::get('/chat/{chat}/pdf', 'DownloadChatAsPDFController@download');
 
     Route::get('/statistics', 'MonthlyStatisticController@show');
 

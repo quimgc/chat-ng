@@ -1,27 +1,55 @@
-<h1> {{ $chat->name }}</h1>
-
-
-
-<ul>
-    <?php foreach($chat->messages as $message): ?>
-        <div>
-            <b>{{$message->user->name}}</b>: {{$message->body}} <div id="date">{{$message->formatted_created_at_date}}</div><br>
-        </div>
-    <?php endforeach; ?>
-</ul>
+<div>
+    <h1>{{ $chat->name }}</h1>
+    <div class="direct-chat-messages">
+        @foreach($chat->messages as $message)
+            <div class="message">
+                <div class="message-content">
+                    <div>
+                        <span class="user_name">{{ $message->user->name }}</span>
+                        <div class="data">
+                            <span> {{ $message->formatted_created_at_date }}</span>
+                        </div>
+                    </div>
+                    <div>
+                        {{ $message->body }}
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>
 
 <style>
-    div{
-        display: flex;
-        padding: 10px;
+    div {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    h1 {
+        text-align: left;
     }
 
-    div:nth-child(odd) { background: #ddd }
+    .data {
+        text-align: right;
+    }
 
-    #date{
-        padding: 0px;
-        margin-left: auto;
-        color: grey;
-        font-size: 12px;
+    .user_name {
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .message {
+        background-color: #cbcaaf;
+        margin-bottom: 25px;
+
+    }
+
+    .message-content {
+        display: inline-block;
+        padding-left: 20px;
     }
 </style>
+
+{{--<div>--}}
+{{--<img src="/public/{{ $message->user->avatar }}" alt="avatar">--}}
+{{--<p>{{ $message->user->name }}</p>--}}
+{{--<p>{{ $message->body }}</p>--}}
+{{--</div>--}}

@@ -22,7 +22,6 @@
                             <h4>
                                 {{message.user}}
                                 <!--{{ trans('adminlte_lang::message.supteam') }}-->
-                                Prova no se que es
                                 <small><i class="fa fa-clock-o"></i>{{ message.created_at }}</small>
                             </h4>
                             <!--<p>{{ trans('adminlte_lang::message.awesometheme') }}</p>-->
@@ -31,7 +30,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="footer"><a href="#">c</a></li>
+            <!--<li class="footer"><a href="#">c</a></li>-->
         </ul>
     </li>
 

@@ -273,6 +273,7 @@
             this.participants.splice(this.participants.indexOf(user),1)
           })
           .listen('NewMessage', e => {
+            console.log(e)
             const message = {
               'body':  e.message,
               'chat_id': e.chat.id,
