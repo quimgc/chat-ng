@@ -39,7 +39,7 @@
                                   {{ participant.name }}
                                   <small class="contacts-list-date pull-right">{{ participant.created_at }}</small>
                                 </span>
-                                    <span class="contacts-list-msg">TODO...</span>
+                                    <span class="contacts-list-msg">{{ participant.email }}</span>
                                 </div>
                             </a>
                         </li>
@@ -273,7 +273,6 @@
             this.participants.splice(this.participants.indexOf(user),1)
           })
           .listen('NewMessage', e => {
-            console.log('listen')
             const message = {
               'body':  e.message,
               'chat_id': e.chat.id,

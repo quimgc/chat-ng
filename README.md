@@ -80,7 +80,7 @@ Si la pàgina dóna algun error de **csrf token** s'ha d'afegir:
 
 Al component de l'element que se'l vol fer "real time", s'ha d'afegir el següent codi al mounted.
 
-      Echo.channel('Chat.' + this.chat.id)
+      Echo.join('Chat.' + this.chat.id)
             .listen('NewMessage', e => {
               console.log('New Message has been updated.')
             })
