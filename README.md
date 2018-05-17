@@ -1,3 +1,12 @@
+# WEB PUSH
+https://github.com/laravel-notification-channels/webpush
+
+Instal·lar 
+    
+    composer require laravel-notification-channels/webpush
+
+
+
 # LARAVEL NOTIFICATION
 
 http://laravel-notification-channels.com/
