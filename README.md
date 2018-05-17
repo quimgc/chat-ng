@@ -1,9 +1,8 @@
 # WEB PUSH
-https://github.com/laravel-notification-channels/webpush
 
-Instal·lar 
-    
-    composer require laravel-notification-channels/webpush
+Seguir els passos.
+
+https://github.com/laravel-notification-channels/webpush
 
 
 
