@@ -13,7 +13,6 @@ class MonthlyStatisticController extends Controller
      */
     public function show()
     {
-
         $messages = Cache::rememberForever('messages', function() {
             return MonthlyStatistic::where('year', 2018)->pluck('chat_messages');
         });
