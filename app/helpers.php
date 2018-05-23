@@ -125,7 +125,7 @@ if (!function_exists('get_chat_monthly_info')) {
     function get_chat_monthly_info($year = null, $month = null)
     {
         Artisan::call('cache:clear');
-        
+
         if($year == null && $month == null) {
             $year = Carbon::now()->year;
             $month = Carbon::now()->subMonth()->month;
