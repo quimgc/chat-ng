@@ -139,7 +139,9 @@ if (!function_exists('get_chat_monthly_info')) {
                 ->whereMonth('created_at',str_pad($month, 2, '0', STR_PAD_LEFT))
                 ->count(),
             'total_users' => DB::table('users')
-                ->whereMonth('created_at','<=',str_pad($month,2,'0',STR_PAD_LEFT))->count(),
+                ->whereYear('created_at', strval($year))
+                ->whereMonth('created_at','<=',str_pad($month,2,'0',STR_PAD_LEFT))
+                ->count(),
             'chat_messages' => DB::table('chat_messages')
                 ->whereYear('created_at',strval($year))
                 ->whereMonth('created_at',str_pad($month,2,'0',STR_PAD_LEFT))
