@@ -268,6 +268,7 @@
             this.participants = users
           })
           .joining((user) => {
+          console.log(user)
             this.participants.push(user)
           })
           .leaving(user => {
