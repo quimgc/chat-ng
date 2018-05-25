@@ -267,7 +267,7 @@
           .here(users => {
             this.participants = users
           })
-          .joining((user) => {
+          .joining((user) => {  
           console.log(user)
             this.participants.push(user)
           })

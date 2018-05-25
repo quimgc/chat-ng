@@ -35,7 +35,7 @@ if (!function_exists('create_test_database')) {
         $now = Carbon::now();
         foreach (range(1, $now->month) as $month) {
             dump('Month: ' . $month);
-            foreach (range(1, rand(50, 1000)) as $user) {
+            foreach (range(1, rand(10, 100)) as $user) {
                 dump('Creating user number ' , $user);
                 dump($randomDate = randomDate(
                     Carbon::createFromDate(null, $month, 1)->startOfMonth(),
@@ -56,7 +56,7 @@ if (!function_exists('generate_messages_for_chat')) {
         $now = Carbon::now();
         foreach (range(1, $now->month) as $month) {
             dump('Month: ' . $month);
-            foreach (range(1, rand(50, 1000)) as $user) {
+            foreach (range(1, rand(10, 100)) as $user) {
                 dump('Creating chat message ' , $user);
                 dump($randomDate = randomDate(
                     Carbon::createFromDate(null, $month, 1)->startOfMonth(),

@@ -30,7 +30,7 @@ class ChatMessageController extends Controller
             (new NewMessage($message, $chat))->dontBroadcastToCurrentUser()
         );
 
-        Notification::send(User::all(), new ChatMessage($user['name'], $message, Carbon::now()));
+//        Notification::send(User::all(), new ChatMessage($user['name'], $message, Carbon::now()));
 
         $chat->addMessage($message);
 
