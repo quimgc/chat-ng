@@ -27,7 +27,6 @@ class NewMessage implements ShouldBroadcast
     public function __construct($message, $chat)
     {
         $this->message = $message;
-
         $this->chat = $chat;
     }
 

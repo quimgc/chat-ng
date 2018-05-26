@@ -22,7 +22,7 @@
 
 
 
-                <chat-messages-notifications :messages="  {{ Auth::user()->formatted_notifications() }}"></chat-messages-notifications>
+                <chat-messages-notifications :user="{{ Auth::user() }}" :messages="  {{ Auth::user()->unreadNotifications }}"></chat-messages-notifications>
 
 
 

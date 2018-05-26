@@ -233,7 +233,8 @@
       },
       send() {
         axios.post('/chat/' + this.chat.id + '/message', {
-          'body': this.message
+          'body': this.message,
+          'participants': this.participants
         }).then(response => {
           const message = {
             'body':  this.message,
@@ -245,8 +246,8 @@
               'id': this.logged_user.id
             }
           }
-          console.log('MESSAGE:')
-          console.log(message)
+//          console.log('MESSAGE:')
+//          console.log(message)
           this.internalMessages.push(message)
         }).catch(error => {
           console.log('Error')

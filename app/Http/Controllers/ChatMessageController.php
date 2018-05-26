@@ -6,6 +6,7 @@ use App\Chat;
 use App\Events\NewMessage;
 use App\Notifications\ChatMessage;
 use App\User;
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Log;
@@ -25,12 +26,22 @@ class ChatMessageController extends Controller
 
         $message = $request->body;
         $user = $request->user;
+        $date = Carbon::now();
+        $participants = $request->participants;
 
         event(
             (new NewMessage($message, $chat))->dontBroadcastToCurrentUser()
         );
 
-//        Notification::send(User::all(), new ChatMessage($user['name'], $message, Carbon::now()));
+        unset($participants[array_search($user['name'], $participants)]);
+
+        foreach ($participants as $participant) {
+            if ($participant['id'] != $user['id']) {
+
+                $userNotify = User::findOrFail($participant['id']);
+                Notification::send($userNotify, new ChatMessage($user, $chat, $message, $date));
+            }
+        }
 
         $chat->addMessage($message);
 

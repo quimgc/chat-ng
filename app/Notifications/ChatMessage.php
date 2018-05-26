@@ -17,6 +17,8 @@ class ChatMessage extends Notification
 
     public $text;
 
+    public $chat;
+
     public $created_at;
 
     /**
@@ -25,10 +27,11 @@ class ChatMessage extends Notification
      * @param $text
      * @param $created_at
      */
-    public function __construct($user, $text, $created_at)
+    public function __construct($user, $text, $chat, $created_at)
     {
         $this->user = $user;
         $this->text = $text;
+        $this->chat = $chat;
         $this->created_at = $created_at;
     }
 
@@ -69,6 +72,7 @@ class ChatMessage extends Notification
         return [
             'user' => $this->user,
             'text' => $this->text,
+            'chat' => $this->chat,
             'created_at' => $this->created_at
         ];
     }
