@@ -37,7 +37,7 @@ class ChatMessageController extends Controller
 
         foreach ($participants as $participant) {
             if ($participant['id'] != $user['id']) {
-
+                Log::info('Notificacio');
                 $userNotify = User::findOrFail($participant['id']);
                 Notification::send($userNotify, new ChatMessage($user, $chat, $message, $date));
             }

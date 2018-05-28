@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Log;
 use NotificationChannels\WebPush\WebPushChannel;
 use NotificationChannels\WebPush\WebPushMessage;
 
@@ -86,11 +87,11 @@ class ChatMessage extends Notification
      */
     public function toWebPush($notifiable, $notification)
     {
+        Log::info('toWebPush');
         return (new WebPushMessage)
-            ->title('Nova notificació')
-//            ->icon('/notification-icon.png')
-            ->body('Thank you for using our application.')
-            ->action('View app', 'view_app')
+            ->title($this->chat->name)
+            ->body($this->user['name'] . ': ' . $this->text)
+            ->action('Veure Aplicació', 'view_app')
             ->data(['id' => $notification->id]);
     }
 }
