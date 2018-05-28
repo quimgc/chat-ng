@@ -34,7 +34,7 @@ class Chat extends Model
         if (!$user) $user = Auth::user();
         $ChatMessage = new ChatMessage([
             'body' => $message,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $this->messages()->save($ChatMessage);
     }

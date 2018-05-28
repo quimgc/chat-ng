@@ -16,7 +16,7 @@ class ChatMessage extends Notification
 
     public $user;
 
-    public $text;
+    public $message;
 
     public $chat;
 
@@ -28,10 +28,10 @@ class ChatMessage extends Notification
      * @param $text
      * @param $created_at
      */
-    public function __construct($user, $text, $chat, $created_at)
+    public function __construct($user, $chat, $message, $created_at)
     {
         $this->user = $user;
-        $this->text = $text;
+        $this->message = $message;
         $this->chat = $chat;
         $this->created_at = $created_at;
     }
@@ -72,7 +72,7 @@ class ChatMessage extends Notification
     {
         return [
             'user' => $this->user,
-            'text' => $this->text,
+            'text' => $this->message,
             'chat' => $this->chat,
             'created_at' => $this->created_at
         ];
@@ -87,11 +87,14 @@ class ChatMessage extends Notification
      */
     public function toWebPush($notifiable, $notification)
     {
-        Log::info('toWebPush');
+
+        //TODO: maquetar el webpush.
         return (new WebPushMessage)
             ->title($this->chat->name)
-            ->body($this->user['name'] . ': ' . $this->text)
-            ->action('Veure Aplicació', 'view_app')
-            ->data(['id' => $notification->id]);
-    }
+            ->icon($this->user['avatar'])
+            ->body($this->user['name'] . ': '. $this->message)
+            ->action('Veure chat', 'view_app')
+             ->data(['id' => $notification->id])
+            ;
+        }
 }

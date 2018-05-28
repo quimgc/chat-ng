@@ -69,10 +69,10 @@
         var index = this.missatgesNollegits.indexOf(sms)
       console.log(index)
       console.log(readNotification)
-//        axios.post(`/notifications/read/${readNotification.id}`)
-//            .then(
-//            this.missatgesNollegits.splice(index, 1)
-//        )
+        axios.post(`/notifications/read/${readNotification.id}`)
+            .then(
+            this.missatgesNollegits.splice(index, 1)
+        )
       this.missatgesNollegits.splice(index, 1)
 
     },
@@ -107,7 +107,7 @@
     },
   },
   mounted () {
-    this.getUnreadSMS();
+    this.getUnreadSMS()
     this.startListener()
   }
 }

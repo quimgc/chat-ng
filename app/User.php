@@ -44,7 +44,6 @@ class User extends Authenticatable
     {
         return
             $this->notifications->map(function ($notification) {
-                dd($notification);
             return [
                 'id' => $notification->id,
                 'message' => $notification->data['chat'],
