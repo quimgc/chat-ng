@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Chat;
+use DB;
+use Log;
 
 /**
  * Class ChatController.
@@ -30,6 +32,9 @@ class ChatController extends Controller
      */
     public function show(Chat $chat)
     {
+//        Log::info($chat->id);
+//        $prova = DB::table('notifications')->where('data->text->id','=', (string)$chat->id)->count();
+//        Log::info($prova);
         $chat->load(['messages','messages.user']);
         return view('chat',['chat' => $chat]);
     }

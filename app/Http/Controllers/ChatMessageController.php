@@ -31,7 +31,7 @@ class ChatMessageController extends Controller
 
         //Amb unset i array_search es trau de l'array d'usuaris l'owner del missatge.
         //D'aquesta forma al foreach enviem la notificació a tots els usuaris del xat menys al propietari.
-        
+
         unset($participants[array_search($user['name'], $participants)]);
 
         event(

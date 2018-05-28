@@ -5,7 +5,7 @@
                 <h3 class="box-title">{{ chat.name }}</h3>
 
                 <div class="box-tools pull-right">
-                    <span data-toggle="tooltip" title="" class="badge bg-yellow" data-original-title="3 New Messages">3</span>
+                    <span data-toggle="tooltip" title="" class="badge bg-yellow" data-original-title="3 New Messages"></span>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
                     <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="Contacts">
