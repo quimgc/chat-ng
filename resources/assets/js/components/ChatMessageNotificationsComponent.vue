@@ -16,11 +16,10 @@
 
                             </div>
                             <h4>
-                                <p>{{ message.user }}</p>
-
+                                <!--<p>{{ message.data.user.name}}</p>-->
                                 <!--<small><i class="fa fa-clock-o"></i>{{ message.created_at }}</small>-->
                             </h4>
-                            <p>{{ message.chat }}</p>
+                            <!--<p>{{ message.data.text }}</p>-->
                         </a>
                     </li>
                 </ul>
@@ -105,7 +104,7 @@
           }
         })
         var index = this.missatgesNollegits.indexOf(missatge)
-        console.log(readNotification)
+//        console.log(readNotification)
         axios.post(`/notifications/read/${readNotification.id}`)
           .then(
             this.missatgesNollegits.splice(index, 1)
@@ -121,10 +120,11 @@
       startListener() {
         Echo.private(`App.User.${this.user.id}`)
           .notification((notification) => {
+          console.log(notification)
             const message = {
               'chat': notification.chat,
-              'text': notification.message,
-              'user': notification.user,
+              'text': notification.text,
+              'user': notification.user.name,
               'id': notification.id,
               created_at: {
                 'date': this.timestamp(),
@@ -132,8 +132,8 @@
                 'timezone_type': 3
               }
             }
-            console.log('pujar sms')
-            console.log(message)
+//            console.log('pujar sms')
+//            console.log(message)
             this.missatgesNollegits.push(message)
           })
       },
